@@ -1,12 +1,11 @@
-local getData     = require "muryp-findList.utils.getData"
-local picker      = require "muryp-findList.utils.picker"
-local M           = {}
+local getData = require 'muryp-findList.utils.getData'
+local picker = require 'muryp-findList.utils.picker'
+local M = {}
 
-M.findWorkspace   = function()
-end
+M.findWorkspace = function() end
 M.findWorkspaceJS = function()
-  local LIST_WORKSPACE, DIR, FILE = getData({ 'pnpm-workspace.yaml', 'packages.json' })
-  if FILE:match('.*/packages.json') then
+  local LIST_WORKSPACE, DIR, FILE = getData { 'pnpm-workspace.yaml', 'packages.json' }
+  if FILE:match '.*/packages.json' then
     LIST_WORKSPACE = LIST_WORKSPACE.workspaces ---@type string[]
     local concate = table.concat(LIST_WORKSPACE, ' ' .. DIR)
     local getpath = vim.fn.system('ls -d ' .. DIR .. concate)
@@ -17,7 +16,7 @@ M.findWorkspaceJS = function()
     LIST_WORKSPACE = table.concat(LIST_WORKSPACE, ' ' .. DIR .. '/')
     LIST_WORKSPACE = vim.fn.system('ls -d ' .. DIR .. '/' .. LIST_WORKSPACE)
     local TABLE = {}
-    for match in LIST_WORKSPACE:gmatch("[^\n]+") do
+    for match in LIST_WORKSPACE:gmatch '[^\n]+' do
       match = match:gsub(DIR, '')
       table.insert(TABLE, match)
     end
@@ -38,10 +37,6 @@ M.findWorkspaceJS = function()
     title = 'choose your issue',
   }
 end
-M.cmdGlobal       = function()
-
-end
-M.cmdJS           = function()
-
-end
+M.cmdGlobal = function() end
+M.cmdJS = function() end
 return M
